@@ -1,0 +1,10 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+    name: image-hello1
+    namespace: tekton
+spec:
+    type: image
+    params:
+        - name: url
+          value:  kyunghoon451/tekton_pipeline_resource:0.0.1
