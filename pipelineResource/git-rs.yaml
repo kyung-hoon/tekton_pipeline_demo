@@ -9,4 +9,4 @@ spec:
         - name: revision
           value: master
         - name: url
-          value: https://gitlab.com/happycloudpak/hello1
+          value: https://github.com/kyung-hoon/pipeline_demo_project

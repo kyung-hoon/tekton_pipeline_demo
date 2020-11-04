@@ -9,7 +9,7 @@ spec:
         name: build-image
     resources:
       inputs:
-          - name: hello1
+          - name: pipeline-demo-project
             resourceRef: 
                name: git-hello1
       outputs:
@@ -20,5 +20,5 @@ spec:
         - name: pathToDockerfile
           value: deployment/Dockerfile
         - name: pathToContext
-          value: /workspace/hello1
+          value: /workspace/pipeline-demo-project
    

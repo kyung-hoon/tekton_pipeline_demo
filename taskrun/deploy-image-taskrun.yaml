@@ -1,0 +1,23 @@
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+    name: deploy-image-taskrun
+    namespace: tekton
+spec:
+    ServiceAccountName: tutorial-service
+    taskRef: 
+        name: deploy-image
+    resources:
+        inputs: 
+            - name: pipeline-demo-project
+              resourceRef:
+                name: git-hello1
+            - name: image
+              resourceRef: 
+                name: image-hello1
+    params:
+        - name: path
+          value: /workspace/pipeline-demo-project/deployment/deploy.yaml
+        - name: yamlPathToImage
+          value: "spec.template.spec.containers[0].image"
+              

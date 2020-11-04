@@ -15,7 +15,7 @@ spec:
         (https://github.com/GoogleContainerTools/kaniko#kaniko-build-contexts)
   resources:
     inputs:
-        - name: hello1
+        - name: pipeline-demo-project
           type: git
     outputs: 
         - name: builtImage
