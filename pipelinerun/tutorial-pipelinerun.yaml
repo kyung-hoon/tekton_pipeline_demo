@@ -1,0 +1,15 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+    name: tutorial-pipelinerun
+spec:
+    serviceAccountName: tutorial-service
+    pipelineRef:
+        name: tutorial-pipeline
+    resources:
+        - name: source-repo
+          resourceRef: 
+            name: git-hello1
+        - name: web-image
+          resourceRef:
+            name: image-hello1

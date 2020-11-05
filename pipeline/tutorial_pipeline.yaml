@@ -1,12 +1,43 @@
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
-    name: tutorial-pipeline
-    namespace: tekton
+  name: tutorial-pipeline
+  namespace: tekton
 spec:
-    resources: 
-        - name: source-repo
-          type: git
-        - name: web-image
-          type: image
-    task: 
+  resources:
+    - name: source-repo
+      type: git
+    - name: web-image
+      type: image
+  tasks:
+    - name: build-docker-image
+      taskRef:
+        name: build-image
+      params:
+        - name: pathToDockerfile
+          value: deployment/Dockerfile
+        - name: pathToContext
+          value: /workspace/pipeline-demo-project # 
+      resources:
+        inputs:
+          - name: pipeline-demo-project
+            resource: source-repo
+        outputs:
+          - name: builtImage
+            resource: web-image
+    - name: deploy-web
+      taskRef:
+        name: deploy-image
+      resources:
+        inputs:
+          - name: pipeline-demo-project
+            resource: source-repo
+          - name: image
+            resource: web-image
+            from:
+              - build-docker-image
+      params:
+        - name: path
+          value: /workspace/pipeline-demo-project/deployment/deploy.yaml #configure: may change according to your source
+        - name: yamlPathToImage
+          value: "spec.template.spec.containers[0].image"
